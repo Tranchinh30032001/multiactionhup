@@ -1,6 +1,6 @@
-use near_sdk::Promise;
-
 use crate::*;
+use near_sdk::Promise;
+use near_units::parse_near;
 
 pub(crate) fn assert_at_least_one_yocto() {
     assert!(
@@ -9,11 +9,10 @@ pub(crate) fn assert_at_least_one_yocto() {
     )
 }
 
-pub(crate) fn assert_one_yocto() {
-    assert_eq!(
-        env::attached_deposit(),
-        1,
-        "Required attached deposit of exactly 1 yoctoNEAR"
+pub(crate) fn assert_fee_storage_deposit() {
+    assert!(
+        env::attached_deposit() >= parse_near!("0.00125 N"),
+        "You have to deposit greater or equa to 0.00125 Near"
     )
 }
 
